@@ -1,0 +1,436 @@
+local Notificaton = {}
+
+local NotificationLib = Instance.new("ScreenGui")
+
+function CreateGUI()
+	local UIListLayout = Instance.new("UIListLayout")
+
+	NotificationLib.Name = "NotificationLib"
+	NotificationLib.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+	NotificationLib.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+	NotificationLib.ResetOnSpawn = false
+
+	UIListLayout.Parent = NotificationLib
+	UIListLayout.HorizontalAlignment = Enum.HorizontalAlignment.Right
+	UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+	UIListLayout.VerticalAlignment = Enum.VerticalAlignment.Bottom
+	UIListLayout.Padding = UDim.new(0, 5)
+end
+
+pcall(function()
+	if game.Players.LocalPlayer.PlayerGui:FindFirstChild("NotificationLib") then
+	else
+		CreateGUI()
+	end
+end)
+
+task.wait()
+
+function Notificaton:newNotify(title, text, resuit, cooldown)
+	cooldown = cooldown or 5
+	
+
+	local SmallUI = Instance.new("Frame")
+	local Top = Instance.new("Frame")
+	local UICorner = Instance.new("UICorner")
+	local Line = Instance.new("Frame")
+	local UICorner_2 = Instance.new("UICorner")
+	local UICorner_3 = Instance.new("UICorner")
+	local Text = Instance.new("TextLabel")
+	local Title = Instance.new("TextLabel")
+	
+
+
+	SmallUI.Name = "SmallUI"
+	SmallUI.Parent = NotificationLib
+	SmallUI.AnchorPoint = Vector2.new(0.5, 0.5)
+	SmallUI.BackgroundColor3 = Color3.fromRGB(61, 61, 61)
+	SmallUI.BorderSizePixel = 0
+	SmallUI.Position = UDim2.new(0.20433259, 0, 0.848128974, 0)
+	SmallUI.Size = UDim2.new(0, 234, 0, 55)
+
+	Top.Name = "Top"
+	Top.Parent = SmallUI
+	Top.BackgroundColor3 = Color3.fromRGB(47, 47, 47)
+	Top.BorderSizePixel = 0
+	Top.Position = UDim2.new(0.00219478761, 0, -0.00417868886, 0)
+	Top.Size = UDim2.new(0, 233, 0, 21)
+
+	UICorner.CornerRadius = UDim.new(0, 6)
+	UICorner.Parent = Top
+
+	Line.Name = "Line"
+	Line.Parent = SmallUI
+	Line.BackgroundColor3 = Color3.fromRGB(resuit)
+	Line.BorderSizePixel = 0
+	Line.Position = UDim2.new(0.00208810717, 0, 0.938528836, 0)
+	Line.Size = UDim2.new(0, 233, 0, 3)
+	Line.Visible = true
+
+	UICorner_2.CornerRadius = UDim.new(0, 6)
+	UICorner_2.Parent = Line
+
+	UICorner_3.CornerRadius = UDim.new(0, 6)
+	UICorner_3.Parent = SmallUI
+
+	Text.Name = "Text"
+	Text.Parent = SmallUI
+	Text.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	Text.BackgroundTransparency = 1.000
+	Text.Position = UDim2.new(0.00219478761, 0, 0.504912198, 0)
+	Text.Size = UDim2.new(0, 233, 0, 19)
+	Text.Font = Enum.Font.SourceSans
+	Text.Text = text
+	Text.TextColor3 = Color3.fromRGB(156, 156, 156)
+	Text.TextScaled = true
+	Text.TextSize = 14.000
+	Text.TextWrapped = true
+
+	Title.Name = "Title"
+	Title.Parent = SmallUI
+	Title.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	Title.BackgroundTransparency = 1.000
+	Title.Position = UDim2.new(-1.83410011e-05, 0, 0.00781915896, 0)
+	Title.Size = UDim2.new(0, 234, 0, 20)
+	Title.Font = Enum.Font.SourceSans
+	Title.Text = title
+	Title.TextColor3 = Color3.fromRGB(255, 255, 255)
+	Title.TextScaled = true
+	Title.TextSize = 14.000
+	Title.TextWrapped = true
+	
+	if resuit == "success" then
+		Line.BackgroundColor3 = Color3.fromRGB(0, 255, 0)
+	end
+	if resuit == "info" then
+		Line.BackgroundColor3 = Color3.fromRGB(0, 85, 255)
+	end
+	if resuit == "error" then
+		Line.BackgroundColor3 = Color3.fromRGB(170, 0, 0)
+	end
+	if resuit == "none" then
+		Line.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	end
+
+	
+	spawn(function()
+		wait(cooldown)
+		for i,v in pairs(SmallUI:GetChildren()) do
+			if v:IsA("Frame") then
+				spawn(function()
+					v.Visible = false	
+				end)
+				
+			end
+			spawn(function()
+			if v:IsA("TextLabel") then
+				for i = 1, 10 do
+					task.wait()
+					v.TextTransparency = v.TextTransparency + 0.1
+				end
+			end
+			end)
+			spawn(function()
+				if v:IsA("TextButton") then
+					for i = 1, 10 do
+						task.wait()
+						v.TextTransparency = v.TextTransparency + 0.1
+						v.BackgroundTransparency = v.BackgroundTransparency + 0.1
+					end
+				end
+			end)
+		end
+
+		for i = 1, 10 do
+			task.wait()
+			SmallUI.BackgroundTransparency = SmallUI.BackgroundTransparency + 0.1
+		end
+		task.wait(0.5)
+		SmallUI:Destroy()
+	end)
+end
+
+function Notificaton:newChoiceNotify(title, titletext, text, resuit, clickedText, cooldown, callback)
+	callback = callback or function() end
+	cooldown = cooldown or 5
+
+	local UI = Instance.new("Frame")
+	local Top_2 = Instance.new("Frame")
+	local UICorner_4 = Instance.new("UICorner")
+	local Line = Instance.new("Frame")
+	local UICorner_5 = Instance.new("UICorner")
+	local Middle = Instance.new("Frame")
+	local ComfirmFrame = Instance.new("Frame")
+	local TopText = Instance.new("TextLabel")
+	local BottomText = Instance.new("TextLabel")
+	local BottomText2 = Instance.new("TextLabel")
+	local Yes = Instance.new("TextButton")
+	local No = Instance.new("TextButton")
+	local TextLabel = Instance.new("TextLabel")
+	local UICorner_6 = Instance.new("UICorner")
+
+
+	UI.Name = "UI"
+	UI.Parent = NotificationLib
+	UI.AnchorPoint = Vector2.new(0.5, 0.5)
+	UI.BackgroundColor3 = Color3.fromRGB(61, 61, 61)
+	UI.BorderSizePixel = 0
+	UI.Position = UDim2.new(0.49876231, 0, 0.499222398, 0)
+	UI.Size = UDim2.new(0, 234, 0, 160)
+
+	Top_2.Name = "Top"
+	Top_2.Parent = UI
+	Top_2.BackgroundColor3 = Color3.fromRGB(47, 47, 47)
+	Top_2.BorderSizePixel = 0
+	Top_2.Position = UDim2.new(0.00219478761, 0, -0.00417871494, 0)
+	Top_2.Size = UDim2.new(0, 233, 0, 27)
+
+	UICorner_4.CornerRadius = UDim.new(0, 6)
+	UICorner_4.Parent = Top_2
+
+	Line.Name = "Line"
+	Line.Parent = UI
+	Line.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	Line.BorderSizePixel = 0
+	Line.Position = UDim2.new(0.00208810717, 0, 0.974892497, 0)
+	Line.Size = UDim2.new(0, 233, 0, 4)
+	Line.Visible = true
+
+	UICorner_5.CornerRadius = UDim.new(0, 6)
+	UICorner_5.Parent = Line
+
+	Middle.Name = "Middle"
+	Middle.Parent = UI
+	Middle.BackgroundColor3 = Color3.fromRGB(47, 47, 47)
+	Middle.BackgroundTransparency = 1.000
+	Middle.BorderSizePixel = 0
+	Middle.Position = UDim2.new(0, 0, 0.239571288, 0)
+	Middle.Size = UDim2.new(0, 234, 0, 78)
+
+	ComfirmFrame.Name = "ComfirmFrame"
+	ComfirmFrame.Parent = Middle
+	ComfirmFrame.BackgroundColor3 = Color3.fromRGB(47, 47, 47)
+	ComfirmFrame.BackgroundTransparency = 1.000
+	ComfirmFrame.BorderSizePixel = 0
+	ComfirmFrame.Position = UDim2.new(0, 0, 0.0216225684, 0)
+	ComfirmFrame.Size = UDim2.new(0, 234, 0, 78)
+
+	TopText.Name = "TopText"
+	TopText.Parent = ComfirmFrame
+	TopText.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	TopText.BackgroundTransparency = 1.000
+	TopText.Position = UDim2.new(-0.00207871664, 0, 0, 0)
+	TopText.Size = UDim2.new(0, 233, 0, 31)
+	TopText.Font = Enum.Font.SourceSans
+	TopText.Text = titletext
+	TopText.TextColor3 = Color3.fromRGB(156, 156, 156)
+	TopText.TextScaled = true
+	TopText.TextSize = 14.000
+	TopText.TextWrapped = true
+
+	BottomText.Name = "BottomText"
+	BottomText.Parent = ComfirmFrame
+	BottomText.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	BottomText.BackgroundTransparency = 1.000
+	BottomText.Position = UDim2.new(0.00219478761, 0, 0.412659079, 0)
+	BottomText.Size = UDim2.new(0, 233, 0, 15)
+	BottomText.Font = Enum.Font.SourceSans
+	BottomText.Text = text
+	BottomText.TextColor3 = Color3.fromRGB(116, 116, 116)
+	BottomText.TextScaled = true
+	BottomText.TextSize = 14.000
+	BottomText.TextWrapped = true
+
+	BottomText2.Name = "BottomText2"
+	BottomText2.Parent = ComfirmFrame
+	BottomText2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	BottomText2.BackgroundTransparency = 1.000
+	BottomText2.Position = UDim2.new(-0.00207871664, 0, 0.758812904, 0)
+	BottomText2.Size = UDim2.new(0, 233, 0, 18)
+	BottomText2.Font = Enum.Font.SourceSans
+	BottomText2.Text = "Comfirm"
+	BottomText2.TextColor3 = Color3.fromRGB(156, 156, 156)
+	BottomText2.TextScaled = true
+	BottomText2.TextSize = 14.000
+	BottomText2.TextWrapped = true
+
+	Yes.Name = "Yes"
+	Yes.Parent = ComfirmFrame
+	Yes.BackgroundColor3 = Color3.fromRGB(8, 166, 0)
+	Yes.BorderSizePixel = 0
+	Yes.Position = UDim2.new(0.529914558, 0, 1.0698719, 0)
+	Yes.Size = UDim2.new(0, 98, 0, 22)
+	Yes.Font = Enum.Font.SourceSans
+	Yes.Text = "Yes"
+	Yes.TextColor3 = Color3.fromRGB(255, 255, 255)
+	Yes.TextScaled = true
+	Yes.TextSize = 14.000
+	Yes.TextWrapped = true
+
+	No.Name = "No"
+	No.Parent = ComfirmFrame
+	No.BackgroundColor3 = Color3.fromRGB(166, 0, 0)
+	No.BorderSizePixel = 0
+	No.Position = UDim2.new(0.051282052, 0, 1.0698719, 0)
+	No.Size = UDim2.new(0, 98, 0, 22)
+	No.Font = Enum.Font.SourceSans
+	No.Text = "No"
+	No.TextColor3 = Color3.fromRGB(255, 255, 255)
+	No.TextScaled = true
+	No.TextSize = 14.000
+	No.TextWrapped = true
+
+	TextLabel.Parent = UI
+	TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	TextLabel.BackgroundTransparency = 1.000
+	TextLabel.Position = UDim2.new(-0.00429184549, 0, -0.00648781098, 0)
+	TextLabel.Size = UDim2.new(0, 234, 0, 26)
+	TextLabel.Font = Enum.Font.SourceSans
+	TextLabel.Text = title
+	TextLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+	TextLabel.TextScaled = true
+	TextLabel.TextSize = 14.000
+	TextLabel.TextWrapped = true
+
+	UICorner_6.CornerRadius = UDim.new(0, 6)
+	UICorner_6.Parent = UI
+	
+	if resuit == "success" then
+		Line.BackgroundColor3 = Color3.fromRGB(0, 255, 0)
+	end
+	if resuit == "info" then
+		Line.BackgroundColor3 = Color3.fromRGB(0, 85, 255)
+	end
+	if resuit == "error" then
+		Line.BackgroundColor3 = Color3.fromRGB(170, 0, 0)
+	end
+	if resuit == "none" then
+		Line.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	end
+
+	Yes.MouseButton1Click:Connect(function()
+		callback()
+		Yes.Text = clickedText
+		wait(1)
+		for i,v in pairs(UI:GetChildren()) do
+			if v:IsA("Frame") then
+				spawn(function()
+					v.Visible = false	
+				end)
+				
+			end
+			spawn(function()
+				if v:IsA("TextLabel") then
+					for i = 1, 10 do
+						task.wait()
+						v.TextTransparency = v.TextTransparency + 0.1
+					end
+					wait(1)
+					v:Destroy()
+				end
+			end)
+			spawn(function()
+				if v:IsA("TextButton") then
+					for i = 1, 10 do
+						task.wait()
+						v.TextTransparency = v.TextTransparency + 0.1
+						v.BackgroundTransparency = v.BackgroundTransparency + 0.1
+					end
+					wait(1)
+					v:Destroy()
+				end
+			end)
+			
+		end
+		spawn(function()
+		for i = 1, 10 do
+			task.wait()
+			UI.BackgroundTransparency = UI.BackgroundTransparency + 0.1
+			end
+			end)
+		task.wait(0.5)
+		UI:Destroy()
+	end)
+	No.MouseButton1Click:Connect(function()
+		for i,v in pairs(UI:GetChildren()) do
+			if v:IsA("Frame") then
+				spawn(function()
+					v.Visible = false	
+				end)
+				
+			end
+			spawn(function()
+				if v:IsA("TextLabel") then
+					for i = 1, 10 do
+						task.wait()
+						v.TextTransparency = v.TextTransparency + 0.1
+					end
+				end
+			end)
+			spawn(function()
+				if v:IsA("TextButton") then
+					for i = 1, 10 do
+						task.wait()
+						v.TextTransparency = v.TextTransparency + 0.1
+						v.BackgroundTransparency = v.BackgroundTransparency + 0.1
+					end
+				end
+			end)
+
+		end
+		spawn(function()
+		for i = 1, 10 do
+			task.wait()
+			UI.BackgroundTransparency = UI.BackgroundTransparency + 0.1
+			end
+		end)
+		task.wait(0.5)
+		UI:Destroy()
+	end)
+	
+	spawn(function()
+		wait(cooldown)
+		for i,v in pairs(UI:GetChildren()) do
+			if v:IsA("Frame") then
+				spawn(function()
+					v.Visible = false	
+				end)
+			end
+			spawn(function()
+				if v:IsA("TextLabel") then
+					for i = 1, 10 do
+						task.wait()
+						v.TextTransparency = v.TextTransparency + 0.1
+					end
+				end
+			end)
+			spawn(function()
+				if v:IsA("TextButton") then
+					for i = 1, 10 do
+						task.wait()
+						v.TextTransparency = v.TextTransparency + 0.1
+						v.BackgroundTransparency = v.BackgroundTransparency + 0.1
+					end
+					wait(1)
+					v:Destroy()
+				end
+			end)
+
+		end
+		spawn(function()
+		for i = 1, 10 do
+			task.wait()
+			UI.BackgroundTransparency = UI.BackgroundTransparency + 0.1
+			end
+			task.wait(0.3)
+			UI:Destroy()
+			end)
+		
+	end)
+end
+
+function Notificaton:Apply()
+return
+end
+
+return Notificaton
