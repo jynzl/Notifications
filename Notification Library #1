@@ -425,7 +425,5 @@ function Notificaton:newChoiceNotify(title, titletext, text, resuit, clickedText
 end
 
 function Notificaton:Apply()
-return
-end
-
 return Notificaton
+end
