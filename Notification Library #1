@@ -1,7 +1,7 @@
 local Notificaton = {}
 
 pcall(function()
-	if game.Players.LocalPlayer.PlayerGui:FindFirstChild("NotificationLib") then
+	if game.CoreGui:FindFirstChild("NotificationLib") then
 	else
 		local NotificationLib = Instance.new("ScreenGui")
 		local UIListLayout = Instance.new("UIListLayout")
