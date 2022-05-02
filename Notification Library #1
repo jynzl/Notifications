@@ -35,7 +35,7 @@ function Notificaton:newNotify(title, text, resuit, cooldown)
 
 
 	SmallUI.Name = "SmallUI"
-	SmallUI.Parent = NotificationLib
+	SmallUI.Parent = game.CoreGui:FindFirstChild("NotificationLib")
 	SmallUI.AnchorPoint = Vector2.new(0.5, 0.5)
 	SmallUI.BackgroundColor3 = Color3.fromRGB(61, 61, 61)
 	SmallUI.BorderSizePixel = 0
@@ -164,7 +164,7 @@ function Notificaton:newChoiceNotify(title, titletext, text, resuit, clickedText
 
 
 	UI.Name = "UI"
-	UI.Parent = NotificationLib
+	UI.Parent = game.CoreGui:FindFirstChild("NotificationLib")
 	UI.AnchorPoint = Vector2.new(0.5, 0.5)
 	UI.BackgroundColor3 = Color3.fromRGB(61, 61, 61)
 	UI.BorderSizePixel = 0
