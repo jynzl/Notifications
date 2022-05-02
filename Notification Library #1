@@ -7,7 +7,7 @@ pcall(function()
 		local UIListLayout = Instance.new("UIListLayout")
 
 		NotificationLib.Name = "NotificationLib"
-		NotificationLib.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+		NotificationLib.Parent = game.CoreGui
 		NotificationLib.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 		NotificationLib.ResetOnSpawn = false
 
