@@ -1,26 +1,21 @@
 local Notificaton = {}
 
-local NotificationLib = Instance.new("ScreenGui")
-
-function CreateGUI()
-	local UIListLayout = Instance.new("UIListLayout")
-
-	NotificationLib.Name = "NotificationLib"
-	NotificationLib.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
-	NotificationLib.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-	NotificationLib.ResetOnSpawn = false
-
-	UIListLayout.Parent = NotificationLib
-	UIListLayout.HorizontalAlignment = Enum.HorizontalAlignment.Right
-	UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
-	UIListLayout.VerticalAlignment = Enum.VerticalAlignment.Bottom
-	UIListLayout.Padding = UDim.new(0, 5)
-end
-
 pcall(function()
 	if game.Players.LocalPlayer.PlayerGui:FindFirstChild("NotificationLib") then
 	else
-		CreateGUI()
+		local NotificationLib = Instance.new("ScreenGui")
+		local UIListLayout = Instance.new("UIListLayout")
+
+		NotificationLib.Name = "NotificationLib"
+		NotificationLib.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+		NotificationLib.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+		NotificationLib.ResetOnSpawn = false
+
+		UIListLayout.Parent = NotificationLib
+		UIListLayout.HorizontalAlignment = Enum.HorizontalAlignment.Right
+		UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+		UIListLayout.VerticalAlignment = Enum.VerticalAlignment.Bottom
+		UIListLayout.Padding = UDim.new(0, 5)
 	end
 end)
 
