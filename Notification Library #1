@@ -19,8 +19,6 @@ pcall(function()
 	end
 end)
 
-task.wait()
-
 function Notificaton:newNotify(title, text, resuit, cooldown)
 	cooldown = cooldown or 5
 	
@@ -425,5 +423,6 @@ function Notificaton:newChoiceNotify(title, titletext, text, resuit, clickedText
 end
 
 function Notificaton:Apply()
-return Notificaton
+return
 end
+return Notificaton
