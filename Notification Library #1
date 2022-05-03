@@ -1,3 +1,5 @@
+-- This is self-made notification for unique hub v2.
+
 local Notificaton = {}
 
 pcall(function()
