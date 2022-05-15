@@ -3,7 +3,7 @@
 local roUI = {}
 
 
-function roUI:CreateChoiceNotify(titlea, desca, icon, canceltext, comfirmtext, timer, callback)
+function roUI:CreateChoiceNotify(titlea, desca, iconz, canceltext, comfirmtext, timer, callback)
 	callback = callback or function() end
 	timer = timer or 5
 	
@@ -130,7 +130,7 @@ function roUI:CreateChoiceNotify(titlea, desca, icon, canceltext, comfirmtext, t
 	icon.BorderSizePixel = 0
 	icon.Position = UDim2.new(0.502372026, 0, 0.453225642, 0)
 	icon.Size = UDim2.new(0, 150, 0, 147)
-	icon.Image = "https://www.roblox.com/asset-thumbnail/image?assetId=" .. icon .. "&width=420&height=420&format=png"
+	icon.Image = "https://www.roblox.com/asset-thumbnail/image?assetId=" .. iconz .. "&width=420&height=420&format=png"
 	icon.ScaleType = Enum.ScaleType.Fit
 	
 	UIStroke.Thickness = 1
