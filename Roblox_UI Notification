@@ -3,8 +3,9 @@
 local roUI = {}
 
 
-function roUI:CreateChoiceNotify(titlea, desca, iconz, canceltext, comfirmtext, timer, callback)
+function roUI:CreateChoiceNotify(titlea, desca, iconz, canceltext, comfirmtext, timer, callback, nocallback)
 	callback = callback or function() end
+	nocallback = nocallback or function() end
 	timer = timer or 5
 	
 	local roloxxUI = Instance.new("ScreenGui")
@@ -152,6 +153,7 @@ function roUI:CreateChoiceNotify(titlea, desca, iconz, canceltext, comfirmtext, 
 	
 	comfirm.MouseButton1Click:Connect(function()
 		callback()
+		task.wait(.1)
 		BuyScreenLol:TweenPosition(UDim2.new(0.499, 0,-0.999, 0), "Out", "Quint", 1.6)
 		task.wait(1.7)
 		roloxxUI:Destroy()
@@ -162,6 +164,7 @@ function roUI:CreateChoiceNotify(titlea, desca, iconz, canceltext, comfirmtext, 
 		comfirm.BackgroundColor3 = Color3.new(1, 1, 1)
 	end)
 	cancel.MouseButton1Click:Connect(function()
+		nocallback()
 		BuyScreenLol:TweenPosition(UDim2.new(0.499, 0,-0.999, 0), "Out", "Quint", 1.6)
 		task.wait(1.7)
 		roloxxUI:Destroy()	
